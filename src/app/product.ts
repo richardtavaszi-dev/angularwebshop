@@ -1,5 +1,6 @@
 import { Guid } from "guid-typescript";
 
+
 export class Product {
     id: string = Guid.create().toString()
     categorie: string = ""
