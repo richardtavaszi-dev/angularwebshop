@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
 
-export class Product {
+export class ProductComponent {
     id: string = Guid.create().toString()
     name: string = ""
     category: string = ""

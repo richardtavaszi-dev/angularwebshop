@@ -40,6 +40,11 @@ export class Service {
     }
   }
 
+
+getProductById(id: string): Product | undefined {
+  return this.products.find(p => p.id === id);
+}
+
 removeProduct(id: string): void {
   this.products = this.products.filter(p => p.id !== id);
   this.saveData(); 

@@ -17,9 +17,9 @@ export class Create implements OnInit {
     id: '',
     name: '',
     category: '',
-    price: null as any,      // null, hogy a placeholder látszódjon
+    price: null as any,   
     description: '',
-    quantity: null as any,   // null, hogy a placeholder látszódjon
+    quantity: null as any,  
     availability: true
   };
 
@@ -41,8 +41,18 @@ export class Create implements OnInit {
   }
 
   saveProduct(): void {
-    this.newProduct.id = crypto.randomUUID(); 
-    this.service.addProduct(this.newProduct); 
-    this.router.navigate(['/product', this.newProduct.id]); 
+  if ((this.newProduct.quantity || 0) < 3) {
+    alert("Minimális készlet 3 darab!");
+    return; 
   }
+
+  if (!this.newProduct.name || !this.newProduct.price) {
+    alert("Kérlek töltsd ki az összes mezőt!");
+    return;
+  }
+
+  this.newProduct.id = crypto.randomUUID(); 
+  this.service.addProduct(this.newProduct); 
+  this.router.navigate(['/product', this.newProduct.id]); 
+}
 }

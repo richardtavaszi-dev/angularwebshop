@@ -1,32 +1,30 @@
-<div class="container mt-4" *ngIf="selectedProduct">
+<div class="container mt-4" *ngIf="product as p">
   
-  <div class="card shadow mx-auto" 
-       [ngClass]="selectedProduct.quantity < 10 ? 'bg-danger text-white' : 'bg-white text-dark'" 
-       style="max-width: 500px;">
+  <div class="card shadow" [ngClass]="p.quantity < 10 ? 'border-danger' : 'border-light'">
     
-    <div class="card-header fw-bold">
-      Kategória: {{ selectedProduct.category }}
+    <div class="card-header" [ngClass]="p.quantity < 10 ? 'bg-danger text-white' : ''">
+      {{ p.name }}
     </div>
     
     <div class="card-body">
-      <h3 class="card-title">{{ selectedProduct.name }}</h3>
-      <p class="card-text">{{ selectedProduct.description }}</p>
-      <hr>
-      <h5>Ár: {{ selectedProduct.price }} Ft</h5>
-      <p>Készleten: <strong>{{ selectedProduct.quantity }} db</strong></p>
-      
-      <p *ngIf="selectedProduct.quantity < 10" class="fw-bold">
+      <h5 class="card-title">Ár: {{ p.price }} Ft</h5>
+      <p class="card-text">
+        <strong>Készlet: {{ p.quantity }} db</strong>
+      </p>
+
+      <p class="text-danger fw-bold" *ngIf="p.quantity < 10">
         ⚠️ ALACSONY KÉSZLET!
       </p>
     </div>
-    
-    <div class="card-footer text-end">
-      <button class="btn" 
-              [ngClass]="selectedProduct.quantity < 10 ? 'btn-light text-danger' : 'btn-primary'" 
-              (click)="addToCart()">
+
+    <div class="card-footer bg-transparent border-0">
+      <button class="btn btn-primary" (click)="addToCart()">
         🛒 Kosárba tesz
       </button>
+
+      <a routerLink="/list" class="btn btn-warning ms-2">
+        Vissza a termékekhez
+      </a>
     </div>
   </div>
-
 </div>

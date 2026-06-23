@@ -1,34 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Service, Product } from '../service';
 
 @Component({
   selector: 'app-product',
-  standalone: false, 
-  templateUrl: './product.html',
-  styleUrls: ['./product.css']
+  standalone: true,
+  imports: [CommonModule, RouterModule], // <-- Itt importáld a CommonModule-t
+  templateUrl: './product.html'
 })
-export class Product implements OnInit {
-  productId: string | null = '';
+export class ProductComponent implements OnInit {
+  product: Product | undefined;
 
-  selectedProduct: any = null;
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private service: Service) {}
 
   ngOnInit(): void {
-
-    this.productId = this.route.snapshot.paramMap.get('id');
-
-    let currentDB = JSON.parse(localStorage.getItem("dev_DB") ?? "[]");
-    
-    this.selectedProduct = currentDB.find((p: any) => p.id === this.productId);
+   
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.product = this.service.getProductById(id);
+    }
   }
 
   addToCart(): void {
-    if (this.selectedProduct) {
-      let cartData = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
-      cartData.push(this.selectedProduct);
-      localStorage.setItem("cart_DB", JSON.stringify(cartData));
-      alert(`${this.selectedProduct.name} hozzáadva a kosárhoz!`);
+    if (this.product) {
+   
+      let cart = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
+      cart.push(this.product);
+      localStorage.setItem("cart_DB", JSON.stringify(cart));
+      alert("Termék a kosárban!");
     }
   }
 }
+
+export { Product };
