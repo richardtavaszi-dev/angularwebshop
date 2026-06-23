@@ -12,6 +12,7 @@
       <th>Ár</th>
       <th>Elérhető darabszám</th>
       <th>Kosárba rak</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,13 @@
           🛒 Kosárba
         </button>
       </td>
+      <td>
+        <button (click)="deleteProduct(product.id)" class="btn btn-outline-danger">
+          <i class="bi bi-trash"></i>
+          🗑️ Termék végleges törlése (admin)
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
+

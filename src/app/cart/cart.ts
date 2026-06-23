@@ -18,16 +18,18 @@ class Product {
   styleUrls: ['./cart.css']
 })
 export class Cart implements OnInit {
-  cartProducts: Product[] = [];
+  cartItems: any[] = [];
 
-  constructor() {
-    this.readCart();
+  ngOnInit(): void {
+    this.cartItems = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
   }
 
-  ngOnInit(): void {}
-
-  readCart(): void {
-    let jsonArray = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
-    this.cartProducts = Object.values(jsonArray).map(x => Object.assign(new Product(), x));
+  removeItem(index: number): void {
+  if (confirm("Biztosan törölni szeretnéd a terméket a kosárból?")) {
+    
+    this.cartItems.splice(index, 1);
+    
+    localStorage.setItem("cart_DB", JSON.stringify(this.cartItems));
   }
+}
 }

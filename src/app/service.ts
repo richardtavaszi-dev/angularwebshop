@@ -4,9 +4,9 @@ export class Product {
   id: string = '';
   name: string = '';
   category: string = '';
-  price: number = 0;
+  price: number | null = null;
   description: string = '';
-  quantity: number = 0;
+  quantity: number | null = null;
   availability: boolean = false;
 }
 
@@ -39,6 +39,11 @@ export class Service {
       this.seed();
     }
   }
+
+removeProduct(id: string): void {
+  this.products = this.products.filter(p => p.id !== id);
+  this.saveData(); 
+}
 
   private seed(): void {
     this.products = [];

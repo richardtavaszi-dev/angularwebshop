@@ -8,8 +8,8 @@ import { App } from './app';
 import { List } from './list/list';
 import { Cart } from './cart/cart';
 import { Create } from './create/create';
-import { Delete } from './delete/delete';
 import { Product } from './product/product';
+import { Delete } from './delete/delete';
 
 @NgModule({
   declarations: [

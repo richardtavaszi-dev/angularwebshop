@@ -22,16 +22,21 @@ export class List implements OnInit {
   }
 
   sortAscending(): void {
-    this.products.sort((a, b) => a.price - b.price);
+    // A (a.price || 0) rész kezeli, ha az ár null lenne
+    this.products.sort((a, b) => (a.price || 0) - (b.price || 0));
   }
 
   sortDescending(): void {
-    this.products.sort((a, b) => b.price - a.price);
+    // Ugyanez csökkenő sorrendnél
+    this.products.sort((a, b) => (b.price || 0) - (a.price || 0));
   }
 
   filterAvailable(): void {
-    this.products = this.service.getProducts().filter(p => p.availability && p.quantity > 0);
-  }
+  // A (p.quantity || 0) biztosítja, hogy ha null az érték, 0-ként kezelje
+  this.products = this.service.getProducts().filter(p => 
+    p.availability && (p.quantity || 0) > 0
+  );
+}
 
   addToCart(product: Product): void {
     let cartData = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
@@ -39,4 +44,16 @@ export class List implements OnInit {
     localStorage.setItem("cart_DB", JSON.stringify(cartData));
     alert(`${product.name} kosárba került!`);
   }
+
+deleteProduct(id: string): void { 
+  const isAdmin = localStorage.getItem("admin_logged") === "true";
+  if (!isAdmin) {
+    alert("Csak adminisztrátorok törölhetnek! Kérlek, jelentkezz be.");
+    return;
+  }
+  if (confirm("Biztosan törölni szeretnéd?")) {
+    this.service.removeProduct(id); 
+    this.products = this.service.getProducts();
+  }
 }
+  }

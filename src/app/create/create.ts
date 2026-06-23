@@ -13,7 +13,15 @@ export class Create implements OnInit {
   isLoggedIn = false;
   showError = false;
 
-  newProduct: Product = new Product();
+  newProduct: Product = {
+    id: '',
+    name: '',
+    category: '',
+    price: null as any,      // null, hogy a placeholder látszódjon
+    description: '',
+    quantity: null as any,   // null, hogy a placeholder látszódjon
+    availability: true
+  };
 
   constructor(private service: Service, private router: Router) {}
 
