@@ -1,11 +1,13 @@
 import { Guid } from "guid-typescript";
 
 
+
 export class Product {
     id: string = Guid.create().toString()
-    categorie: string = ""
+    name: string = ""
+    category: string = ""
     price: number | null = null
-    desctrition: string = ""
-    contact: boolean = true
+    description: string = ""
     quantity: number | null = null
+    availability: boolean = true
 }
