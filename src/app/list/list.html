@@ -1,1 +1,29 @@
-<p>list works!</p>
+<div class="mb-3">
+  <button class="btn btn-outline-primary me-2" (click)="sortAscending()">Növekvő ár</button>
+  <button class="btn btn-outline-primary me-2" (click)="sortDescending()">Csökkenő ár</button>
+  <button class="btn btn-outline-success me-2" (click)="filterAvailable()">Csak elérhető</button>
+  <button class="btn btn-outline-secondary" (click)="read()">Összes visszaállítása</button>
+</div>
+
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th>Termék neve</th>
+      <th>Ár</th>
+      <th>Elérhető darabszám</th>
+      <th>Kosárba rak</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td><a [routerLink]="['/product', product.id]">{{ product.name }}</a></td>
+      <td>{{ product.price }} Ft</td>
+      <td>{{ product.quantity }} db</td>
+      <td>
+        <button class="btn btn-sm btn-primary" (click)="addToCart(product)">
+          🛒 Kosárba
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,1 +1,32 @@
-<p>product works!</p>
+<div class="container mt-4" *ngIf="selectedProduct">
+  
+  <div class="card shadow mx-auto" 
+       [ngClass]="selectedProduct.quantity < 10 ? 'bg-danger text-white' : 'bg-white text-dark'" 
+       style="max-width: 500px;">
+    
+    <div class="card-header fw-bold">
+      Kategória: {{ selectedProduct.category }}
+    </div>
+    
+    <div class="card-body">
+      <h3 class="card-title">{{ selectedProduct.name }}</h3>
+      <p class="card-text">{{ selectedProduct.description }}</p>
+      <hr>
+      <h5>Ár: {{ selectedProduct.price }} Ft</h5>
+      <p>Készleten: <strong>{{ selectedProduct.quantity }} db</strong></p>
+      
+      <p *ngIf="selectedProduct.quantity < 10" class="fw-bold">
+        ⚠️ ALACSONY KÉSZLET!
+      </p>
+    </div>
+    
+    <div class="card-footer text-end">
+      <button class="btn" 
+              [ngClass]="selectedProduct.quantity < 10 ? 'btn-light text-danger' : 'btn-primary'" 
+              (click)="addToCart()">
+        🛒 Kosárba tesz
+      </button>
+    </div>
+  </div>
+
+</div>
