@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { List } from './list/list';
 import { Cart } from './cart/cart';
-import { Product } from './product/product';
+import { Product } from './service';
 import { Create } from './create/create';
 import { FormsModule } from '@angular/forms';
 FormsModule

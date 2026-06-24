@@ -1,30 +1,26 @@
-<div class="container mt-4" *ngIf="product as p">
-  
-  <div class="card shadow" [ngClass]="p.quantity < 10 ? 'border-danger' : 'border-light'">
+<div class="container mt-4" *ngIf="product.name">
+  <div class="card shadow" [ngClass]="(product.quantity ?? 0) < 10 ? 'border-danger' : 'border-light'">
     
-    <div class="card-header" [ngClass]="p.quantity < 10 ? 'bg-danger text-white' : ''">
-      {{ p.name }}
+    <div class="card-header" [ngClass]="(product.quantity ?? 0) < 10 ? 'bg-danger text-white' : ''">
+      {{ product.name }}
     </div>
-    
+
     <div class="card-body">
-      <h5 class="card-title">Ár: {{ p.price }} Ft</h5>
+      <h5 class="card-title">Ár: {{ product.price ?? 0 }} Ft</h5>
       <p class="card-text">
-        <strong>Készlet: {{ p.quantity }} db</strong>
+        <strong>Készlet: {{ product.quantity ?? 0 }} db</strong>
       </p>
 
-      <p class="text-danger fw-bold" *ngIf="p.quantity < 10">
+      <p class="text-danger fw-bold" *ngIf="(product.quantity ?? 0) < 10">
         ⚠️ ALACSONY KÉSZLET!
       </p>
     </div>
+  </div>
+</div>
 
     <div class="card-footer bg-transparent border-0">
       <button class="btn btn-primary" (click)="addToCart()">
         🛒 Kosárba tesz
       </button>
-
-      <a routerLink="/list" class="btn btn-warning ms-2">
-        Vissza a termékekhez
-      </a>
+      <a routerLink="/list" class="btn btn-warning ms-2">Vissza a termékekhez</a>
     </div>
-  </div>
-</div>

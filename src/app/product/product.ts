@@ -6,31 +6,38 @@ import { Service, Product } from '../service';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, RouterModule], // <-- Itt importáld a CommonModule-t
+  imports: [CommonModule, RouterModule],
   templateUrl: './product.html'
 })
 export class ProductComponent implements OnInit {
-  product: Product | undefined;
+  product: Product = { 
+    id: '', 
+    name: '', 
+    category: '', 
+    price: null, 
+    description: '', 
+    quantity: 0, 
+    availability: false 
+  }
 
   constructor(private route: ActivatedRoute, private service: Service) {}
 
   ngOnInit(): void {
-   
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.product = this.service.getProductById(id);
+    
+      const foundProduct = this.service.getProductById(id);
+      if (foundProduct) {
+        this.product = foundProduct;
+      }
     }
   }
 
   addToCart(): void {
-    if (this.product) {
-   
-      let cart = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
-      cart.push(this.product);
-      localStorage.setItem("cart_DB", JSON.stringify(cart));
-      alert("Termék a kosárban!");
-    }
+
+    let cart = JSON.parse(localStorage.getItem("cart_DB") ?? "[]");
+    cart.push(this.product);
+    localStorage.setItem("cart_DB", JSON.stringify(cart));
+    alert("Termék a kosárban!");
   }
 }
-
-export { Product };

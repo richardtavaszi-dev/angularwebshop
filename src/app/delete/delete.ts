@@ -10,7 +10,7 @@ import { Service, Product } from '../service';
 export class Delete implements OnInit {
   isLoggedIn = false;
   products: Product[] = [];
-  selectedIds: string[] = []; // Ide gyűjtjük a törlendő ID-kat
+  selectedIds: string[] = []; 
 
   constructor(private service: Service) {}
 
@@ -18,8 +18,7 @@ export class Delete implements OnInit {
     this.isLoggedIn = localStorage.getItem("admin_logged") === "true";
     this.products = this.service.getProducts();
   }
-
-  // Checkbox állapotának figyelése
+  
   toggleSelection(id: string, event: any): void {
     if (event.target.checked) {
       this.selectedIds.push(id);
@@ -28,14 +27,13 @@ export class Delete implements OnInit {
     }
   }
 
-  // Tömeges törlés
   deleteSelected(): void {
     this.selectedIds.forEach(id => {
-      // Itt hívhatsz egy új metódust a Service-ben
+     
       this.service.removeProduct(id);
     });
     this.selectedIds = [];
-    this.products = this.service.getProducts(); // Frissítjük a nézetet
+    this.products = this.service.getProducts(); 
     alert("Kijelölt termékek törölve!");
   }
 }
